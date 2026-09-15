@@ -49,6 +49,10 @@ jobs:
           RELEASE_TAG="${{ github.ref_name }}"
           gh release view "$RELEASE_TAG" --json tagName >/dev/null 2>&1 || \
             gh release create "$RELEASE_TAG" --title "MdMote $RELEASE_TAG" --generate-notes
-          gh release upload "$RELEASE_TAG" --clobber $(ls | grep -E '\.(AppImage|deb|exe|dmg)$' || true)
+          shopt -s nullglob
+          FILES=(*.AppImage *.deb *.exe *.dmg)
+          if [ ${#FILES[@]} -gt 0 ]; then
+            gh release upload "$RELEASE_TAG" --clobber "${FILES[@]}"
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
