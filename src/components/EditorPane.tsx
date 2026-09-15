@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import type { editor as MonacoEditor } from 'monaco-editor'
 import monaco from '../monaco'
+import { installListEditing } from '../utils/listEditing'
 
 interface EditorPaneProps {
   value: string
@@ -22,6 +23,7 @@ export default function EditorPane({ value, onChange, onMount }: EditorPaneProps
       language: 'markdown',
       theme: 'vs-dark',
       automaticLayout: true,
+      autoIndent: 'none',
       minimap: { enabled: false },
       fontSize: 14,
       lineHeight: 22,
@@ -30,6 +32,8 @@ export default function EditorPane({ value, onChange, onMount }: EditorPaneProps
       wordWrap: 'on',
       renderWhitespace: 'none',
       tabSize: 2,
+      insertSpaces: true,
+      detectIndentation: false,
       folding: true,
       foldingHighlight: true,
       lineNumbersMinChars: 3,
@@ -42,6 +46,7 @@ export default function EditorPane({ value, onChange, onMount }: EditorPaneProps
 
     editorRef.current = editor
     onMount(editor)
+    const listDispose = installListEditing(editor)
 
     const sub = editor.onDidChangeModelContent(() => {
       onChangeRef.current(editor.getValue())
@@ -49,6 +54,7 @@ export default function EditorPane({ value, onChange, onMount }: EditorPaneProps
 
     return () => {
       sub.dispose()
+      listDispose.dispose()
       editorRef.current = null
       onMount(null)
       editor.dispose()
