@@ -64,6 +64,10 @@
         "deb"
       ],
       "category": "Office"
+    },
+    "deb": {
+      "packageName": "MdMote",
+      "artifactName": "MdMote_${version}_${arch}.${ext}"
     }
   }
 }
