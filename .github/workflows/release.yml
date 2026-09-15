@@ -52,6 +52,16 @@ jobs:
           shopt -s nullglob
           FILES=(*.AppImage *.deb *.exe *.zip *.dmg)
           if [ ${#FILES[@]} -gt 0 ]; then
+            EXISTING=$(gh release view "$RELEASE_TAG" --json assets --jq '.assets[].name')
+            for f in "${FILES[@]}"; do
+              lc="$(printf '%s' "$f" | tr '[:upper:]' '[:lower:]')"
+              while IFS= read -r old; do
+                [ -z "$old" ] && continue
+                if [ "$(printf '%s' "$old" | tr '[:upper:]' '[:lower:]')" = "$lc" ]; then
+                  gh release delete-asset "$RELEASE_TAG" "$old" --yes || true
+                fi
+              done <<< "$EXISTING"
+            done
             gh release upload "$RELEASE_TAG" --clobber "${FILES[@]}"
           fi
         env:
