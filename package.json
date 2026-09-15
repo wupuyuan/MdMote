@@ -47,7 +47,9 @@
     "icon": "build/icon.png",
     "win": {
       "target": [
-        "nsis"
+        "nsis",
+        "portable",
+        "zip"
       ]
     },
     "mac": {

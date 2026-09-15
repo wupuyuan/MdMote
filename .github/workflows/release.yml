@@ -18,7 +18,7 @@ jobs:
           - os: ubuntu-latest
             args: --linux AppImage deb
           - os: windows-latest
-            args: --win nsis
+            args: --win nsis portable zip
           - os: macos-latest
             args: --mac dmg
     runs-on: ${{ matrix.os }}
@@ -50,7 +50,7 @@ jobs:
           gh release view "$RELEASE_TAG" --json tagName >/dev/null 2>&1 || \
             gh release create "$RELEASE_TAG" --title "MdMote $RELEASE_TAG" --generate-notes
           shopt -s nullglob
-          FILES=(*.AppImage *.deb *.exe *.dmg)
+          FILES=(*.AppImage *.deb *.exe *.zip *.dmg)
           if [ ${#FILES[@]} -gt 0 ]; then
             gh release upload "$RELEASE_TAG" --clobber "${FILES[@]}"
           fi
