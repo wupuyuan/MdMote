@@ -2,6 +2,10 @@
   "name": "mdmote",
   "version": "1.0.0",
   "description": "MdMote - Cross-platform Markdown editor with glassmorphism UI",
+  "author": {
+    "name": "wupuyuan",
+    "email": "wupuyuan@gmail.com"
+  },
   "main": "dist-electron/main.js",
   "private": true,
   "license": "MIT",
@@ -37,8 +41,10 @@
       "dist-electron/**"
     ],
     "directories": {
-      "output": "release"
+      "output": "release",
+      "buildResources": "build"
     },
+    "icon": "build/icon.png",
     "win": {
       "target": [
         "nsis"
