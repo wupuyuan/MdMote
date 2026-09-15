@@ -1,17 +1,24 @@
+/* Hermes Mono theme — clean grayscale, IBM Plex, sharp corners.
+   Palette mapped from hermes-agent mono skin / dashboard preset:
+   bg #0e0e0e, surfaces #1F1F1F, accents #aaaaaa, borders #555/#444. */
 :root {
-  --glass-bg: rgba(255, 255, 255, 0.06);
-  --glass-bg-strong: rgba(255, 255, 255, 0.09);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-bg-strong: rgba(255, 255, 255, 0.06);
   --glass-border: rgba(255, 255, 255, 0.10);
   --glass-border-strong: rgba(255, 255, 255, 0.16);
-  --menu-alpha: rgba(255, 255, 255, 0.10);
-  --accent: #7aa2f7;
-  --accent-soft: rgba(122, 162, 247, 0.18);
-  --text: #e6e9f2;
-  --text-dim: #9aa4c0;
-  --text-faint: #6b7594;
-  --danger: #f7768e;
-  --radius: 10px;
-  --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --menu-alpha: rgba(255, 255, 255, 0.04);
+  --accent: #aaaaaa;
+  --accent-strong: #e6edf3;
+  --accent-soft: rgba(170, 170, 170, 0.12);
+  --text: #e6edf3;
+  --text-dim: #c9d1d9;
+  --text-faint: #888888;
+  --danger: #d0d0d0;
+  --radius: 0px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI',
+    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'IBM Plex Mono', Consolas, 'Courier New', monospace;
 }
 
 * {
@@ -26,11 +33,10 @@ body,
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, 'Segoe UI', 'PingFang SC',
-    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  font-family: var(--font-sans);
   color: var(--text);
   overflow: hidden;
-  background: #1d1d1f;
+  background: #0e0e0e;
 }
 
 .app-shell {
@@ -57,10 +63,10 @@ body {
 }
 
 .menu-title {
-  font-weight: 700;
+  font-weight: 600;
   font-size: 13px;
   letter-spacing: 0.5px;
-  background: linear-gradient(90deg, #7aa2f7, #bb9af7);
+  background: linear-gradient(90deg, #e6edf3, #888888);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -80,7 +86,7 @@ body {
   color: var(--text);
   font-size: 12.5px;
   padding: 5px 11px;
-  border-radius: 7px;
+  border-radius: var(--radius);
   cursor: pointer;
   transition: background 0.15s ease, transform 0.05s ease;
   font-family: inherit;
@@ -118,7 +124,7 @@ body {
   height: 26px;
   display: grid;
   place-items: center;
-  border-radius: 7px;
+  border-radius: var(--radius);
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
 }
@@ -129,7 +135,7 @@ body {
 }
 
 .menu-icon-close:hover {
-  background: rgba(247, 118, 142, 0.25);
+  background: rgba(208, 208, 208, 0.16);
   color: #fff;
 }
 
@@ -164,7 +170,7 @@ body {
   min-width: 60px;
   height: 29px;
   padding: 0 8px 0 12px;
-  border-radius: 8px 8px 0 0;
+  border-radius: var(--radius);
   font-size: 12.5px;
   color: var(--text-dim);
   cursor: pointer;
@@ -215,7 +221,7 @@ body {
 }
 
 .tab-close:hover {
-  background: rgba(247, 118, 142, 0.3);
+  background: rgba(208, 208, 208, 0.2);
   color: #fff;
 }
 
@@ -227,11 +233,11 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 6px 11px;
-  border-radius: 8px;
+  border-radius: var(--radius);
   font-size: 12px;
   color: var(--text);
-  background: rgba(35, 42, 66, 0.85);
-  border: 1px solid var(--glass-border-strong);
+  background: #1a1a1a;
+  border: 1px solid var(--glass-border);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: var(--shadow);
@@ -308,7 +314,7 @@ body {
   padding: 4px 6px;
   font-size: 12px;
   color: var(--text-dim);
-  border-radius: 6px;
+  border-radius: var(--radius);
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
@@ -409,7 +415,7 @@ body {
 
 .markdown-body .heading-focus {
   animation: heading-pulse 1.5s ease;
-  border-radius: 6px;
+  border-radius: 2px;
 }
 
 @keyframes heading-pulse {
@@ -418,7 +424,7 @@ body {
     background: transparent;
   }
   30% {
-    background: rgba(122, 162, 247, 0.35);
+    background: rgba(170, 170, 170, 0.3);
   }
 }
 
@@ -448,6 +454,7 @@ body {
 }
 
 .markdown-body a:hover {
+  color: var(--accent-strong);
   text-decoration: underline;
 }
 
@@ -460,24 +467,23 @@ body {
   padding: 0.2em 1em;
   border-left: 3px solid var(--accent);
   background: var(--accent-soft);
-  border-radius: 0 6px 6px 0;
   color: var(--text-dim);
 }
 
 .markdown-body code {
-  font-family: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+  font-family: var(--font-mono);
   font-size: 0.9em;
   padding: 0.15em 0.4em;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
 }
 
 .markdown-body pre {
   margin: 1em 0;
   padding: 12px 14px;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.45);
   border: 1px solid var(--glass-border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   overflow: auto;
 }
 
@@ -522,7 +528,7 @@ body {
 
 .markdown-body img {
   max-width: 100%;
-  border-radius: 8px;
+  border-radius: 2px;
 }
 
 .markdown-body hr {
@@ -532,7 +538,7 @@ body {
 }
 
 .markdown-body ::selection {
-  background: rgba(122, 162, 247, 0.3);
+  background: rgba(170, 170, 170, 0.3);
 }
 
 /* ============ Scrollbars ============ */
@@ -546,14 +552,14 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: #555555;
   border-radius: 5px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.28);
+  background: #777777;
   background-clip: padding-box;
   border: 2px solid transparent;
 }
